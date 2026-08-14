@@ -1,0 +1,212 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+    <xacro:macro name="box_link"
+                 params="name x y z color xc yc zc r p j">
+
+        <link name="${name}">
+
+            <visual>
+                <geometry>
+                    <box size="${x} ${y} ${z}"/>
+                </geometry>
+                <material name="${color}"/>
+                <origin xyz="${xc} ${yc} ${zc}" rpy="${r} ${p} ${j}"/>
+            </visual>
+
+            <collision>
+                <geometry>
+                    <box size="${x} ${y} ${z}"/>
+                </geometry>
+            </collision>
+
+            <inertial>
+                <origin xyz="0 0 0"/>
+                <mass value="1.0"/>
+
+                <inertia
+                    ixx="0.01"
+                    ixy="0"
+                    ixz="0"
+                    iyy="0.01"
+                    iyz="0"
+                    izz="0.01"/>
+            </inertial>
+
+        </link>
+
+    </xacro:macro>
+
+    <xacro:macro name="box_inertia" params="m x y z o_xyz o_rpy">
+
+        <inertial>
+
+            <origin xyz="${o_xyz}" rpy="${o_rpy}"/>
+
+            <mass value="${m}"/>
+
+            <inertia
+                ixx="${m*(y*y+z*z)/12}"
+                ixy="0"
+                ixz="0"
+                iyy="${m*(x*x+z*z)/12}"
+                iyz="0"
+                izz="${m*(x*x+y*y)/12}"/>
+
+        </inertial>
+
+    </xacro:macro>
+
+
+    <xacro:macro name="cylinder_link"
+                 params="name radius length color xc yc zc r p j">
+
+        <link name="${name}">
+
+            <visual>
+                <geometry>
+                    <cylinder radius="${radius}"
+                              length="${length}"/>
+                </geometry>
+                <origin xyz="${xc} ${yc} ${zc}" rpy="${r} ${p} ${j}"/>
+                <material name="${color}"/>
+            </visual>
+
+            <collision>
+                <geometry>
+                    <cylinder radius="${radius}"
+                              length="${length}"/>
+                </geometry>
+            </collision>
+
+            <inertial>
+
+                <origin xyz="0 0 0"/>
+
+                <mass value="2.0"/>
+
+                <inertia
+                    ixx="0.02"
+                    ixy="0"
+                    ixz="0"
+                    iyy="0.02"
+                    iyz="0"
+                    izz="0.02"/>
+
+            </inertial>
+
+        </link>
+
+    </xacro:macro>
+
+
+
+    <xacro:macro name="sphere_link"
+                 params="name radius color">
+
+        <link name="${name}">
+
+            <visual>
+
+                <geometry>
+                    <sphere radius="${radius}"/>
+                </geometry>
+
+                <material name="${color}"/>
+
+            </visual>
+
+            <collision>
+
+                <geometry>
+                    <sphere radius="${radius}"/>
+                </geometry>
+
+            </collision>
+
+            <inertial>
+
+                <origin xyz="0 0 0"/>
+
+                <mass value="1.0"/>
+
+                <inertia
+                    ixx="0.01"
+                    ixy="0"
+                    ixz="0"
+                    iyy="0.01"
+                    iyz="0"
+                    izz="0.01"/>
+
+            </inertial>
+
+        </link>
+
+    </xacro:macro>
+
+
+
+
+    <xacro:macro name="fixed_joint"
+                 params="name parent child x y z">
+
+        <joint name="${name}"
+               type="fixed">
+
+            <parent link="${parent}"/>
+
+            <child link="${child}"/>
+
+            <origin xyz="${x} ${y} ${z}"
+                    rpy="0 0 0"/>
+
+        </joint>
+
+    </xacro:macro>
+
+
+    <xacro:macro name="continuous_joint"
+                 params="name parent child x y z ax ay az">
+
+        <joint name="${name}"
+               type="continuous">
+
+            <parent link="${parent}"/>
+
+            <child link="${child}"/>
+
+            <origin xyz="${x} ${y} ${z}"
+                    rpy="0 0 0"/>
+
+            <axis xyz="${ax} ${ay} ${az}"/>
+
+        </joint>
+
+    </xacro:macro>
+    <xacro:macro name="revolute_joint"
+             params="name parent child x y z ax ay az lower upper effort velocity">
+
+    <joint name="${name}"
+           type="revolute">
+
+        <parent link="${parent}"/>
+
+        <child link="${child}"/>
+
+        <origin xyz="${x} ${y} ${z}"
+                rpy="0 0 0"/>
+
+        <axis xyz="${ax} ${ay} ${az}"/>
+
+        <limit lower="${lower}"
+               upper="${upper}"
+               effort="${effort}"
+               velocity="${velocity}"/>
+
+    </joint>
+
+</xacro:macro>
+
+</robot>

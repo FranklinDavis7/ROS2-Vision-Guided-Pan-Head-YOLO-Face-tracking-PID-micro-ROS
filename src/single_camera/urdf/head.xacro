@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<link name="head">
+
+            <visual>
+
+                <geometry>
+                    <mesh filename="package://single_camera/meshes/humanhead.stl" scale="0.0005 0.0005 0.0005"/>                
+                </geometry>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <material name="skin">
+                    <color rgba="0.76 0.57 0.43 1.0"/>
+                </material>
+            </visual>
+
+            <collision>
+
+                <geometry>
+                     <mesh filename="package://single_camera/meshes/humanhead.stl"
+                                scale="0.0005 0.0005 0.0005"/>
+                </geometry>
+
+            </collision>
+
+            <inertial>
+                <origin xyz="0.000173 0.007162 0.105562" rpy="0 0 0" />
+                <mass value="1.3089" />
+               <inertia ixx="0.004345" ixy="-0.000000" ixz="-0.000001"
+                        iyy="0.004131" iyz="0.000266"
+                        izz="0.001328" />
+                </inertial>
+
+</link>
+
+<xacro:revolute_joint
+    name="neck_joint"
+    parent="head_neck"
+    child="head"
+    x="0"
+    y="0"
+    z="${base_height-0.025}"
+    ax="0"
+    ay="0"
+    az="1"
+    lower="0"
+    upper="3.14"
+    effort="0.15"
+    velocity="9.2"/>
+
+
+</robot>

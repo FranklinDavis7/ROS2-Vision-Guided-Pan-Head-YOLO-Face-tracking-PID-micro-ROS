@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+<xacro:box_link
+    name="cam_stand"
+    x="0.1"
+    y="0.1"
+    z="0.1"
+    xc="0"
+    yc="0"
+    zc="0"
+    r="0"
+    p="0"
+    j="${pi}"
+    color="white"/>
+
+<xacro:fixed_joint
+    name="cam_base_joint"
+    parent="base"
+    child="cam_stand"
+    x="0.25"
+    y="0"
+    z="0.05"/>
+</robot>

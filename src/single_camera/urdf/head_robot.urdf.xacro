@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<robot name="head_robot"
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+       <xacro:include filename="properties.xacro"/>
+
+       <xacro:include filename="materials.xacro"/>
+
+       <xacro:include filename="macros.xacro"/>
+
+       <xacro:include filename="base.xacro"/>
+
+       <!-- <xacro:include filename="head_base.xacro"/> -->
+
+       <xacro:include filename="head_neck.xacro"/>
+
+       <xacro:include filename="head.xacro"/>
+
+       <xacro:include filename="gazebo_head.xacro"/>
+
+       <xacro:include filename="cam_stand.xacro"/>
+
+       <xacro:include filename="camera_mount.xacro"/>
+
+
+
+</robot>

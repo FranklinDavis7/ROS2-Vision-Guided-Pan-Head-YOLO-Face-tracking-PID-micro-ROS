@@ -1,0 +1,77 @@
+<launch>
+      <let name="xacro_file"
+      value="$(find-pkg-share single_camera)/urdf/head_robot.urdf.xacro"/>
+
+      <let name="rviz_config"
+      value="$(find-pkg-share single_camera)/rviz/head.rviz"/>
+
+      <let name="gazebo_config_path"
+      value="$(find-pkg-share single_camera)/config/gazebo_bridge.yaml"/>
+
+
+      <!-- Gazebo resource path -->
+      <let name="model_path"
+      value="$(find-pkg-share single_camera)/.."/>
+
+      <set_env name="GZ_SIM_RESOURCE_PATH"
+            value="$(var model_path)"/>
+
+
+      <!-- Robot State Publisher -->
+      <node pkg="robot_state_publisher"
+            exec="robot_state_publisher"
+            name="robot_state_publisher"
+            output="screen">
+
+      <param name="robot_description"
+            value="$(command 'xacro $(var xacro_file)')"/>
+
+      <param name="publish_frequency"
+            value="50.0"/>
+      </node>
+
+
+      <!-- Gazebo -->
+      <include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py">
+
+      <arg name="gz_args"
+            value="$(find-pkg-share single_camera)/world/my_world.sdf -r"/>
+
+      </include>
+
+
+      <!-- Spawn robot from current Xacro -->
+      <node pkg="ros_gz_sim"
+            exec="create"
+            name="spawn_robot"
+            output="screen"
+            args="-topic robot_description -name my_robot"/>
+
+
+      <!-- ROS-Gazebo bridge -->
+      <node pkg="ros_gz_bridge"
+            exec="parameter_bridge"
+            name="bridge"
+            output="screen">
+
+      <param name="config_file"
+            value="$(var gazebo_config_path)"/>
+
+      </node>
+
+
+      <!-- Joint State GUI -->
+      <node pkg="joint_state_publisher_gui"
+            exec="joint_state_publisher_gui"
+            name="joint_state_publisher_gui"
+            output="screen"/>
+
+
+      <!-- RViz -->
+      <node pkg="rviz2"
+            exec="rviz2"
+            name="rviz2"
+            output="screen"
+            args="-d $(var rviz_config)"/>
+
+</launch>

@@ -1,0 +1,33 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <gazebo>
+        <plugin
+            filename="gz-sim-joint-position-controller-system"
+            name="gz::sim::systems::JointPositionController">
+
+            <joint_name>neck_joint</joint_name>
+
+            <topic>/model/my_robot/joint/neck_joint/cmd_pos</topic>
+
+            <use_velocity_commands>true</use_velocity_commands>
+            <p_gain>50.0</p_gain>
+            <i_gain>0.0</i_gain>
+            <d_gain>5</d_gain>
+
+            <max_effort>0.15</max_effort>
+            <max_velocity>9.2</max_velocity>
+
+            <cmd_max>8.0</cmd_max>
+
+        </plugin>
+    </gazebo>
+
+    <gazebo>
+        <plugin 
+            filename="gz-sim-joint-state-publisher-system" 
+            name="gz::sim::systems::JointStatePublisher">
+            <joint_name>neck_joint</joint_name>
+            <update_rate>50</update_rate>
+
+        </plugin>
+    </gazebo>
+</robot>

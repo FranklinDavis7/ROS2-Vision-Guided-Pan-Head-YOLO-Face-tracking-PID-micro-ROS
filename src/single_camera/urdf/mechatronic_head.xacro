@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<link name="head">
+
+            <visual>
+
+                <geometry>
+                        <mesh filename="package://single_camera/meshes/NeckV3.stl" scale="0.0005 0.0005 0.0005"/>                
+                </geometry>
+                <origin xyz="0.0 0.0 ${base_height/2.0}" rpy="3.14159 0 0"/>
+
+
+            </visual>
+            <visual>
+
+                <geometry>
+                        <mesh filename="package://single_camera/meshes/NeckPlateHighV3.stl" scale="0.0005 0.0005 0.0005"/>    
+                        
+                </geometry>
+                <origin xyz="0.0 0.0 ${(base_height/2.0)+0.005}" rpy="0 0 0"/>
+
+
+            </visual>
+            <visual>
+
+                <geometry>
+                        <mesh filename="package://single_camera/meshes/NeckPlateV3.stl" scale="0.0005 0.0005 0.0005"/>    
+                        
+                </geometry>
+                <origin xyz="0.0 0.0 ${(base_height/2.0)+0.005*2.0}" rpy="0 0 0"/>
+
+
+            </visual>
+            <visual>
+
+                <geometry>
+                        <mesh filename="package://single_camera/meshes/TopBackskullV5.stl" scale="0.0005 0.0005 0.0005"/>    
+                        
+                </geometry>
+                <origin xyz="0.0 0.0 ${(base_height/2.0)+0.005*3.0}" rpy="0 0 0"/>
+
+
+            </visual>
+
+</link>
+
+<xacro:fixed_joint
+    name="head_joint"
+    parent="head_neck"
+    child="head"
+    x="0"
+    y="0"
+    z="${base_height/2.0}"/>
+
+
+
+
+</robot>
